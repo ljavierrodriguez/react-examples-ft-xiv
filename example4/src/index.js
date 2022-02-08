@@ -154,9 +154,13 @@ function Saludo() {
     const [notas, setNotas] = useState([]);
 
     useEffect(() => {
+       
+        // ejecuto todas las funciones que quiero utilizar antes de que el usuario interactue con el componente
 
-        generarNotas();
-        
+        return () => {
+            // yo guardo informacion si cambio de componente
+        }
+
     }, [])
 
     const generarNotas = () => {
@@ -166,6 +170,13 @@ function Saludo() {
             setNotas((prevNotas) => {
                 return [...prevNotas, (Math.floor(Math.random() * 10) + 1) * 2]
             })
+        }
+    }
+
+
+    const getSession = () => {
+        if(!sessionStorage.getItem('session')){
+            console.log('No hay session');
         }
     }
 
@@ -181,13 +192,13 @@ function Saludo() {
 }
 
 
-function Login(){
+function Login() {
     /* const [username, setUsername] = useState("");
     const [password, setPassword] = useState(""); */
 
     const [avatar, setAvatar] = useState(null);
 
-    function saludo(){
+    function saludo() {
         /* console.log(username);
         console.log(password); */
         console.log(usernameRef.value);
@@ -195,6 +206,8 @@ function Login(){
         passwordRef.style.backgroundColor = 'green';
         passwordRef.type = 'password'
         passwordRef.style.padding = '10px';
+
+        sessionStorage.setItem('session', JSON.stringify({ username: usernameRef.value }));
     }
 
     let usernameRef = useRef();
@@ -207,8 +220,8 @@ function Login(){
             <input type="text" placeholder='Password' onChange={(e) => setPassword(e.target.value)} /> */}
             <input type="text" placeholder='Username' ref={elem => usernameRef = elem} />
             <input type="text" placeholder='Password' ref={elem => passwordRef = elem} />
-            <img src={avatar && avatar} ref={elem => imgAvatar = elem}/>
-            <input type="file" onChange={(e) => setAvatar(e.target.files[0]) } />
+            <img src={avatar && avatar} ref={elem => imgAvatar = elem} />
+            <input type="file" onChange={(e) => setAvatar(e.target.files[0])} />
             <button onClick={() => saludo()}>Login</button>
         </>
     )
@@ -224,3 +237,35 @@ ReactDOM.render(
     </>,
     document.querySelector('#root')
 );
+
+
+/* Array.prototype.map = function (callback) {
+    let newArray = [];
+    for(let i = 0; i < this.length; i++){
+        newArray.push(callback(this[i], i, this));
+    }
+    return newArray;
+}
+
+[1, 2, 3].map((valor) => {
+    console.log(valor)
+})
+
+useEffect(() => {
+    // componentDidMount
+
+    if(sessionStorage.getItem('session')){
+
+    }
+
+    return () => {
+        // componentWillUnmount
+
+    }
+
+}, []) // esto se ejecuta solo una vez si el array esta vacio, si tiene alguna variable del state se ejecuta nuevamente // componentDidUpdate
+
+useEffect(() => {
+    // componentDidUpdate
+
+}, [state]) */

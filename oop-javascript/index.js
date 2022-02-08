@@ -25,13 +25,13 @@ class Persona {
 
 }
 
-class Estudiante extends Persona {
+class Estudiante extends Persona { // herencia
     constructor(nombre, apellido, edad, genero){
         super(nombre, apellido, edad, genero);
         console.log("Instanciando la clase Estudiante");
     }
 
-    correr = function(){
+    correr = function(){ // polimorfismo
         return 'Ejecutando el metodo correr de Estudiante';
     }
 }
@@ -46,9 +46,9 @@ class Profesor extends Persona {
         return 'Ejecutando el metodo calcularNotas de Profesor';
     }
 }
-let p1 = new Persona("Luis", "Rodriguez", 40, "M");
+let p1 = new Persona("Luis", "Rodriguez", 40, "M"); // instanciando
 
-let e1 = new Estudiante("Javier", "Ortega", 40, "M");
+let e1 = new Estudiante("Javier", "Ortega", 40, "M"); // instanciando
 
 
 console.log(p1.correr());
